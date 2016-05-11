@@ -1,0 +1,41 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <table id='bind'>
+        <caption>访问统计</caption>
+        <thead>
+        <tr>
+            <th></th>
+            <volist name="type" id="vo">
+                <th>{$vo}</th>
+            </volist>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <volist name="val" id="vo">
+                <td>{$vo}</td>
+            </volist>
+        </tr>
+        </tbody>
+    </table>
+</block>
+<block name="script">
+    <script src="__JS__/jsapi.js"></script>
+    <script src="__JS__/zh.js"></script>
+    <script src="__JS__/gvChart.js"></script>
+    <script type="text/javascript">
+        gvChartInit();
+        $(function(){
+            jQuery('#bind').gvChart({
+                chartType: 'PieChart',
+                gvSettings: {
+                    vAxis: {title: '次数'},
+                    hAxis: {title: '类型'},
+                    width: 800,
+                    height: 300
+                }
+            });
+        })
+    </script>
+</block>

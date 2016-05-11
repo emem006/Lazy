@@ -1,0 +1,123 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <volist name="list" id="row">
+                    <div class="social-feed-box" style="margin-bottom: 0">
+                        <div class="social-avatar">
+                            <a href="#" class="pull-left msg-head">
+                                <if condition="$row['head'] eq ''">
+                                    <img src="__ROOT__/Uploads/{$web['logo']}">
+                                    <else />
+                                    <img src="{$row['head']}">
+                                </if>
+                            </a>
+                            <div class="media-body">
+                                <a href="javascript:void(0)">
+                                    {$row['nickname']}
+                                </a>
+                                <small class="text-muted">{$row['create_time']|smartDate=###} 来自 {$row['province']} · {$row['city']}</small>
+                            </div>
+                        </div>
+                        <div class="social-body" style="padding: 15px 5px 25px;">
+                            <p>
+                                {$row['content']|stripslashes=###}
+                            </p>
+
+                            <div class="btn-group pull-right" style="padding: 0 5px 20px">
+                                <button class="btn btn-white btn-xs thinks" data-id="{$row['id']}"><span class="badge badge-danger laud-num pull-right">{$row['laud']}</span><i class="fa fa-thumbs-up"></i> 赞</button>
+                                <button class="btn btn-white btn-xs btn-comment"><i class="fa fa-comments"></i> 评论</button>
+                                <!--<button class="btn btn-white btn-xs"><i class="fa fa-share"></i> 分享</button>-->
+                            </div>
+                        </div>
+                        <div class="social-footer">
+                            <volist name="row.reply" id="rep">
+                                <div class="social-comment">
+                                    <a href="javascript:void(0)" class="pull-left msg-head">
+                                        <if condition="$rep['head'] eq ''">
+                                            <img src="__IMG__/default-head.png">
+                                            <else />
+                                            <img src="{$rep['head']}">
+                                        </if>
+                                    </a>
+                                    <div class="social-body">
+                                        <a href="javascript:void(0)">
+                                            {$rep['nickname']}
+                                        </a>
+                                        <br/>
+                                        <div class="well-sm" style="padding:10px 0;">{$rep['content']|stripslashes=###}</div>
+                                        <small class="text-muted pull-right">{$rep['create_time']|smartDate=###}</small>
+                                    </div>
+                                </div>
+                            </volist>
+                            <div class="social-comment heart-submit" style="display: none;">
+                                <a href="#" class="pull-left">
+                                    <if condition="$head eq ''">
+                                        <img src="__IMG__/default-head.png">
+                                        <else />
+                                        <img alt="image" src="{$head}">
+                                    </if>
+                                </a>
+                                <div class="feed-element">
+                                    <textarea class="form-control write-comment" data-id="{$row['id']}" placeholder="填写评论回车提交..."></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <nav class="pagination" role="navigation" style="display: block;text-align:center;">
+            {$page}
+        </nav>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            $(".thinks").on("click",function(){
+                var that=$(this);
+                var id=$(this).attr("data-id");
+                $.get("{:U('Index/UpLaud')}",{id:id},function(data){
+                    if(data.status){
+                        var num=that.find(".laud-num").text();
+                        that.find(".laud-num").text(parseInt(num)+1);
+                    }
+                })
+            })
+            $(".btn-comment").on("click",function(){
+                $(this).parent().parent().next().find(".heart-submit").toggle();
+            });
+            $('.write-comment').keydown(function(event){
+                var that=$(this);
+                if (event.keyCode == "13") {
+                    var content = $(this).val(),
+                            nickname="{$nickname}",
+                            rowID=$(this).attr("data-id");
+                    if(content == ''){
+                        layer.msg('请留下一点东西吧!');
+                    }else{
+                        $.ajax({
+                            url:'{:U("Index/post")}',
+                            type:'POST',
+                            data:{nickname:nickname,email:null,web:null,content:content,art_id:rowID},
+                            success:function(data){
+                                if(data.status){
+                                    that.val("");
+                                    that.parent().parent().hide();
+                                    layer.msg('Thank you very much！');
+                                    window.location.reload();
+                                }else{
+                                    layer.msg(data.info);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        })
+    </script>
+</block>

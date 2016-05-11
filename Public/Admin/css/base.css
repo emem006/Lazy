@@ -1,0 +1,159 @@
+html {height: 100%;}
+body{font-family: "Proxima Nova","ProximaNova-Light",\5FAE\8F6F\96C5\9ED1,'Nunito', myriad pro, tahoma, sans-serif; font-size: 12px}
+h1,h2,h3,h4,h5,h6{font-family:"Proxima Nova","ProximaNova-Light",\5FAE\8F6F\96C5\9ED1,'Nunito', myriad pro, tahoma, sans-serif;font-weight:normal;color:#666;}
+.clearfix:after{clear:both; content:" ";display: block; visibility:hidden; height:0}
+.fl{float: left;}
+.fr{float: right;}
+.pointer{cursor: pointer;}
+.dis-none{ display: none;}
+.f-left{ float: left !important;}
+.f-right{ float: right;}
+.clear{clear: both;}
+
+/*头部样式*/
+header{width: 100%; background: #333333}
+header .row{width: 98%; margin: 0 auto}
+.navbar-header a .logo {height: 50px; color: #fff; font-weight: bold; font-size: 22px}
+.navbar-header .logo img{display: block; width: 100%; height: auto;}
+.navbar{border-radius:0;margin-bottom:0;border:none;height:50px; color: #fff}
+.navbar .navbar-nav > li > a{color: #fff;}
+.navbar .user-menu > li{padding:0 15px; text-align: center;}
+.navbar .user-menu > li.last a{width: 50px; height: 50px;}
+.navbar .user-menu > li > a,.navbar .user-menu > li > span{height:50px; line-height:50px; padding: 0;width: 130px;}
+.navbar .user-menu > li > a:hover,.navbar .user-menu > li > a:focus{background: #42474D}
+.navbar .navbar-nav > li > a.settings > span.icon,.navbar .navbar-nav > li > span.settings > span.fa{font-size: 16px;}
+.navbar .navbar-nav > li.last > a.settings > span.fa{font-size: 30px;width: 30px; height: 30px; padding-top: 10px;}
+.navbar .navbar-nav > li .txt{color: #ddd;font-size: 14px;}
+
+/*左边栏*/
+.sidebar{ position: absolute; width: 180px; height: 100%; background: #444444;}
+.sidebar-inner .nav li a{color: #eee; font-size: 14px; font-weight: 400; padding: 10px;}
+.sidebar-inner .fa{margin:0 10px; font-size: 14px;}
+.sidebar-inner .nav li a:hover,.sidebar-inner .nav li > a.active{text-decoration: none; background: #333333; color:#fff; -webkit-transition:all .3s ease;-moz-transition: all .3s ease;-o-transition:all .3s ease;transition:all .3s ease;}
+.sidebar-inner .nav > li ul{list-style: none; padding-left: 0; display: none; background: #2A2A2A; margin-left: 0}
+.sidebar-inner .nav > li ul > li > a{font-size: 12px; font-weight: 400; display: block; color: #777; padding: 10px 5px 10px 45px}
+.sidebar-inner .nav > li ul > li.active > a{color: #fff;}
+.sidebar-inner .nav > li ul > li > a.active,.sidebar-inner .nav li > a.active,.sidebar-inner .nav > li ul > li.active{
+    background-color: #3a3a3a;
+    background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#333333), to(#3F3F3F));
+    background-image: -webkit-linear-gradient(top, #333333 0%, #3F3F3F 100%);
+    background-image: -moz-linear-gradient(top, #333333 0%, #3F3F3F 100%);
+    background-image: -ms-linear-gradient(top, #333333 0%, #3F3F3F 100%);
+    background-image: -o-linear-gradient(top, #333333 0%, #3F3F3F 100%);
+    background-image: linear-gradient(top, #333333 0%, #3F3F3F 100%);
+}
+/**/
+
+/*main主体样式*/
+.content{ background: #fff;padding: 10px 10px 10px 190px; overflow: hidden;}
+.content .page-title{ margin-top: 20px; margin-bottom: 0; color: #495b79;font-size: 24px;}
+.content .col-md-12{padding-left: 25px; padding-right: 25px}
+.content-box-content{position: relative;}
+.page-title{border-bottom: 1px solid #ddd; padding-bottom: 9px}
+
+/*搜索框  及其中表单的样式*/
+.search-form .input-sm{margin-right: 12px}
+.search-content{ padding: 10px 0 10px 0px;}
+.search-content .small-input{ width: 15% !important;}
+
+/*分页样式*/
+.pagination {text-align: right;padding: 5px 0 0px 0;font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px}
+.pagination a.number, #go { border: 1px solid #ddd;}
+.pagination a.current, #go { background: #4B9802;border-color: #4B9802 !important;color: #fff !important;}
+.pagination a.current:hover {text-decoration: underline;}
+.pagination #go{cursor:pointer;height:22px;}
+.pagination #page_num{ width:30px;height:18px;border:1px solid #ccc}
+
+/**结尾样式**/
+.footer{border-top:1px solid #ccc;margin:40px 0 0 0;padding:20px 0; font-size: 12px}
+
+/**通用小部件**/
+.type-attr{overflow: hidden; margin-bottom: 5px}
+.prompt-div{color:#999;width: 90%; margin-top: 5px}
+.prompt-red{color: red; padding: 0 10px}
+.arrow{float: right; font-size: 12px; position: absolute; top: 16px; right: 15px}
+.bg-info{background: #ebeef2!important}
+.info-box{margin-bottom:20px; border-radius: 4px}
+.info-box .info-icon{display: inline-block; width: 28%; text-align: center; padding: 20px;}
+.info-box span.icon{font-size: 36px; color: #fff}
+.info-details{display: inline-block; width: 70%; padding-left: 3%; padding-right: 3%}
+.info-details h4{font-size: 14px;}
+.bg-info-dark{background: #5dd0ed!important}
+#plus-input,.minus-input,.spec{margin:8px 0 0 10px; font-size: 14px; cursor:pointer;}
+.spec{position: relative}
+.spec span{position: absolute; left: 0; top: 4px}
+.u-img-icon{font-style: normal; font-size: 14px; color: #666; margin-right: 10px; cursor: pointer}
+.u-img-input{margin-top: 7px}
+
+.preview{width: 70px; height: 70px; overflow: hidden;}
+.preview img{max-width: 70px; max-height: 70px;}
+
+.on-off{font-size: 14px; cursor: pointer;}
+.fa-red{color: red;}
+.fa-green{color: green;}
+.fa-black{color: #000000;}
+
+/*全局按钮样式*/
+.button{display:inline-block;background: #4B9802;border:1px solid #fff !important;padding:5px 15px !important; color: #fff}
+.button:hover{background: #459300}
+.btn{color: #fff}
+.add .icon ,.modify .icon,.delete-delete .icon{color: #000; font-size: 14px;}
+.delete-batch{background: #d9534f;}
+.delete-batch:hover{background: red; color: #fff}
+.derive,.btn-grren{background: #8fce35}
+.derive:hover,.btn-grren:hover{background: #459300; color: #fff}
+.atrous{background: #42474D}
+.atrous:hover{background: #333}
+
+/*修改框架默认样式*/
+.form-horizontal{width:98%; margin-top: 20px;border: 0px solid #000}
+.form-horizontal.admin-group{width: 100%}
+.form-horizontal .group-name{width: 306px}
+.form-group{margin-bottom: 15px}
+.form-horizontal .tiny-input{width: 15% !important;}
+.form-horizontal .small-input{width: 10% !important;}
+.form-horizontal .medium-input{width: 50% !important;}
+.form-horizontal .large-input{width: 90% !important;}
+.form-control{width: 40%}
+
+.table>thead>tr>th{background:#E8E8E8; border-bottom: 0 ;font-size: 14px;}
+.table>tbody>tr>td,.table>tfoot>tr>td{border-top:0}
+.table>tbody>.alt-row{background: #F9F9F9}
+.breadcrumb{margin-top: 10px; margin-bottom: 0; border-radius: 0}
+
+.page-header{padding-bottom: 0; margin:5px 0;}
+.page-header h3{float: left; margin-top: 6px; color: #495b79;margin-left: 10px;;font-size: 15px;}
+.page-header .nav{float: right; font-size: 13px; border-bottom: none;}
+
+.form-control-select{width: 30%}
+.form-control-select1{width: 12%; float: left; margin-right: 10px;}
+.attr-s input{width: 6%; float: left;}
+.attr-s label{float: left;}
+.input-small{width:15%}
+
+.alert{margin-bottom: 10px;}
+
+.reply-1{color: green;}
+.reply-0{color: red;}
+
+.textarea-box{position: relative;}
+#textarea{min-height:100px;margin-bottom:10px; width: 100%; vertical-align:middle;}
+#smilies{float: left; padding-left: 2px; position: absolute; left: 10px; bottom: 5px; z-index: 99;}
+#smilies-box ul,.smilie,.smilies-icon{display: block}
+#smilies .smilies-icon{width: 22px; height: 22px; background: url(../img/bq.png) no-repeat; cursor: pointer;}
+.smilie{width: 25px; height: 25px;}
+.dropdown-arrow1, .dropdown-arrow2{position: absolute; left: 7px; z-index: 1; width: 0; height: 0; border-color: transparent; border-style: dashed dashed solid; border-width: 0 8px 8px}
+.dropdown-arrow1{top: 36px; border-bottom-color: #ccc; border-bottom-color: rgba(0,0,0,.2)}
+.dropdown-arrow2{top: 37px; border-bottom-color: #fff}
+#smilies .dropdown-arrow1{top: 28px;}
+#smilies .dropdown-arrow2{top: 29px;}
+.submenu{position: absolute; top: 44px; left: 0; overflow: hidden; padding: 25px; width: 35pc; border: 1px solid #ccc; border-color: rgba(0,0,0,.2); border-radius: 2px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.2)}
+#smilies-box{top: 36px; left: -5px; padding: 10px; width: 360px;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;}
+#smilies-box ul li{margin: 0 -1px -1px 0; padding: 5px; width: 25px; height: 25px; border: 1px solid #eee}
+#smilies-box ul li:hover{background: #f0f0f0}
+.inline-ul{font-size: 0; margin: 0; padding: 0;}
+.inline-ul .inline-li{vertical-align: top; word-spacing: normal; letter-spacing: normal; font-size: 9pt}
+.inline-li{display: inline-block;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;}
+.dropdown.selected .smilies-box{display: block}
+.smilies-box{display: none}
+

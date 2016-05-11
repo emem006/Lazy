@@ -1,0 +1,167 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="wrapper wrapper-content" style="overflow: hidden">
+        <div class="row animated fadeInRight">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>那是涛涛江水连绵不绝…</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="chat-message-form">
+                                <div class="form-group">
+                                    <div id="textarea" class="form-control" contenteditable="true" tabindex="4"></div>
+                                </div>
+                                <div id="smilies" class="dropdown">
+                                    <span class="smilies-icon"></span>
+                                    <div class="smilies-box">
+                                        <div class="dropdown-arrow1"></div>
+                                        <div class="dropdown-arrow2"></div>
+                                        <div id="smilies-box" class="submenu">
+                                            <ul class="inline-ul">
+                                                {$smilies}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 pull-left">
+                            <if condition="$nickname eq ''">
+                                <img src="__IMG__/qq.png" class="qq" style="width: 24px;">
+                                <a href="{:U('Login/login',array('type'=>'qq'))}">QQ登陆</a>
+
+                                <img src="__IMG__/sina.png" class="qq" style="width: 21px">
+                                <a href="{:U('Login/login',array('type'=>'sina'))}">微博登陆</a>
+
+                                <img src="__IMG__/weixin.png" class="qq" style="width: 17px">
+                                <a id="wx" href="javascript:void(0)">微信登陆</a>
+                            </if>
+                        </div>
+                        <div class="col-sm-4 pull-right text-right form-inline">
+                            <button class="btn btn-primary btn-xs btn-submit" type="button"><i class="fa fa-check"></i>&nbsp;提交</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最新动态</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="padding: 15px 20px 0">
+                        <div>
+                            <div class="feed-activity-list">
+                                <volist name="list" id="row">
+                                    <div class="social-feed-box">
+                                        <div class="social-avatar">
+                                            <a href="javascript:void(0)" class="pull-left msg-head">
+                                                <if condition="$row['uid'] eq 1">
+                                                    <img src="__ROOT__/Uploads/{$web['logo']}" class="img-circle">
+                                                    <else />
+                                                    <img src="{$row['head']}" class="img-circle">
+                                                </if>
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="javascript:void(0)">
+                                                    {$row['nickname']}
+                                                </a>
+                                                <small class="text-muted">来自 {$row['province']} · {$row['city']}</small>
+                                                <p class="pull-right">{$row['create_time']} </p>
+                                            </div>
+                                        </div>
+                                        <div class="social-body">
+                                            <p>
+                                                {$row['content']|stripslashes=###}
+                                            </p>
+                                        </div>
+                                        <if condition="!empty($row['reply'])">
+                                            <div class="social-footer">
+                                                <div class="social-comment">
+                                                    <a href="#" class="pull-left">
+                                                        <img alt="image" src="__ROOT__/Uploads/{$web['logo']}">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <a href="#">
+                                                            {$row['reply']['nickname']}
+                                                        </a>
+                                                        <br/>
+                                                        <p style="padding-top: 5px;">{$row['reply']['content']|stripslashes=###}</p>
+                                                        <small class="text-muted pull-right">{$row['reply']['create_time']}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </if>
+
+                                    </div>
+                                </volist>
+                            </div>
+                            <nav class="pagination" role="navigation" style="display: block;text-align:center;">
+                                {$page}
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $('.smilie-close').click(function(){
+            $('#smilies').removeClass('selected');
+        });
+        $('.smilies-icon').click(function(){
+            $('#smilies').addClass('selected');
+        });
+
+        $('.smilie-click').click(function(){
+            var _this = $(this);
+            $('#textarea').append(_this.html());
+            $('#smilies').removeClass('selected');
+        });
+
+        $('.btn-submit').click(function(){
+            var nickname = "{$nickname}",
+                    content = $('#textarea').html();
+            if(content == ''){
+                layer.msg('请留下一点东西吧!');
+            }else if(nickname == ''){
+                layer.msg('登录下吧!');
+            }else{
+                $.ajax({
+                    url:'{:U("Message/post")}',
+                    type:'POST',
+                    data:{nickname:nickname,email:email,web:web,content:content},
+                    success:function(data){
+                        if(data.status){
+                            layer.msg('Thank you very much！');
+                        }else{
+                            layer.msg(data.info);
+                        }
+                    }
+                });
+            }
+        });
+        $("#wx").on("click",function(){
+            //官网欢迎页
+            layer.open({
+                type: 2,
+                title: '',
+                shadeClose: true,
+                area: ['300px', '65%'],
+                content: "{:U('Login/login',array('type'=>'weixin'))}"
+            });
+        })
+    </script>
+</block>
+
+

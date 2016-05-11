@@ -1,0 +1,92 @@
+body{color: #666;font-size: 12px;}
+ul,li { list-style: none; padding: 0; margin: 0;}
+a{color: #37a}
+.am-gotop-fixed{width: auto;right: -8px;}
+.color2{color: #072;}
+.more{font-size: 12px;color: #837960}
+.more a{color: #837960}
+a:hover{color: #072;text-decoration: none;}
+header{box-shadow: 0 0 5px rgba(0,0,0,0.2);position: fixed;left: 0;top: 0;width: 100%;z-index: 999;}
+header .service-list{background-color: #00b271;color: #fff;border-bottom: 1px solid #ccc;}
+header .service-list .service-list-inner{margin: 0 auto;padding: 0 10px;min-width: 320px;max-width: 1080px;overflow: hidden;}
+header .service-list .service-list-inner ul{margin-left: -10px;}
+header li{float: left;}
+header .service-list .service-list-inner ul li a{display: block;padding: 8px 10px;color: inherit;text-decoration: none;}
+header .service-list .sub-title{float: right;padding: 8px 0;}
+header .global-nav{background-color: #fafafa;}
+header .global-nav .global-nav-inner{position: relative;margin: 0 auto;min-width: 320px;max-width: 1080px;overflow: hidden;}
+header .global-nav .global-nav-inner a{display: block;padding: 10px;outline: none;color: #666;text-decoration: none;text-shadow: 0 1px 0 #fff;}
+
+/*bj*/
+.wrap{height: 100%;position: relative;overflow: hidden;padding:0;margin:0;}
+
+/*content*/
+.muxu-content{min-width: 320px;max-width: 1080px;padding-top: 76px;margin: 0 auto;}
+.muxu-content .zioxin li,.muxu-content .remen li{margin-top: 4px;}
+.muxu-content .post-topic-area{padding: 10px 0px;margin-left: 10px;font-size: 15px;border-bottom: 1px solid #00b271;}
+.muxu-content .topics-wrapper{background-color: #fff;padding: 0 0 1px 0;margin-left: 10px;}
+.muxu-content .topics-wrapper .topic-detail{padding-top: 5px;overflow: hidden;}
+.muxu-content .topics-wrapper .topic-detail .pic_show{padding: 5px;}
+.zioxin ul{padding-left: .7em}
+.archives{padding: 44px 10px 10px 10px;}
+/*links*/
+.links li{float: left;width: 13em;}
+/*进度条颜色*/
+.nprogress-bar{background: #DB3652!important;}
+/*文章页徽章*/
+.badge a{margin-top: 4px;margin-right: 4px;}
+/*文章页*/
+.article{padding: 5px 5px 5px 10px;}
+.article h3{margin: 0 0 .6rem;font-weight: 500;}
+.article span{margin-right: 18px;}
+.article p{margin:0;}
+.article li{border-bottom: 1px solid #e5e5e5;padding-bottom: 10px;margin-bottom: 20px;}
+.article .block{padding: 10px;color: #999;background: #f9f9f9;overflow: hidden;}
+.article .block img{max-width: 50%}
+.article .pic{position: relative;float: left;margin-right: 16px;width: 60px;height: 60px;overflow: hidden;white-space: nowrap;}
+.article .pic .pic-wrap{position: absolute;width: 120px;height: 120px;top: 0px;left: 0px;text-align: center;}
+.article .source{margin-top: 10px;color: #666;}
+
+/*http://i0.hdslb.com/headers/b314d69ec7ba625d89a343366c045026.PNG*/
+/*footer*/
+footer{color: #fff;padding: 15px 0 15px;margin-top: 20px;width: 100%;-webkit-background-size: cover; background-position: center center;background-repeat: no-repeat;background-color: #00b271;}
+footer .footer{min-width: 320px;max-width: 1080px;margin: 0 auto;padding: 5px;}
+footer a{color: #fff}
+footer .muxu-cp{margin: 2px 0;}
+footer small,footer a{font-size: 12px;}
+
+/*page*/
+.page{text-align: center;margin-left: 10px;overflow: hidden;}
+.page div{overflow: hidden;}
+.page .current,.page .num,.page .next,.page .prev{margin: 0 2px 0 0;padding: 0 4px;min-width: 32px;width: auto;display: block;float: left;height: 32px;border: none;border-radius: 1px;background-color: #00b271;box-shadow: 0 1px 1px rgba(0,0,0,0.1);color: #fff;text-align: center;text-shadow: 0 1px 1px rgba(0,0,0,0.1);font-weight: bold;font-size: 12px;line-height: 32px;cursor: pointer;}
+.page .current{background-color: #eee;box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);color: #333;cursor: default;}
+/*music*/
+.music-bj{width: 100%;position: fixed;height: 65px;bottom: 0;left: 0;background-color: #000;color: #072;overflow: hidden;opacity: .2}
+#music a:hover{background: #000}
+#music{width: 100%;color: #072;}
+#music a{color: #072}
+#music a:hover{color: #093;cursor:pointer;background-color:transparent;}
+#music-list{width: 100%;height: auto;position: fixed;bottom: 65px;left: 0;background-color: rgba(0,0,0,0.5);color: #fff;display: none;}
+#music-list ul{list-style: none;padding: 0}
+#music-list ul li{float: left;width: 20%;list-style: none;cursor:pointer}
+#music-list ul li:hover{background: #ccc;}
+#play{width:40px;height: 40px;position: absolute;top:50%;left: 50%;margin-left: -20px;margin-top: -20px;cursor:pointer}
+#hover-music{width: .7em;height: 65px;background: #000;position: fixed;bottom: 0;left: 0;}
+.playing{background-color: #7baf30}
+
+
+/*链接*/
+.link-bj{position: fixed;width: 100%;height: 100%;background-position: center;background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;z-index: -1}
+#link{width: 100%;color: #fff;}
+#link .links li div{background-color: rgba(255,255,255,.3);transition: all .5s;height: 100px;margin: .2rem;overflow: hidden;}
+#link .links li div:hover{background-color: rgba(255,255,255,.6);}
+#link .links li a{margin-top: 1px;color: #072;}
+
+/*search*/
+.muxu-search{width:350px;height: 43px;position: relative;}
+.muxu-search .searchtxt{background: #fafafa;border: 0;padding: 12px 0 12px 10px;width: 100%;padding-right: 25px;outline : none;}
+.muxu-search .searchbutt{position: absolute;top:0;right: 10px;padding: 12px 0 12px 10px;background-color: transparent;border:none;outline : none;}
+
+/*ads*/
+/*内页*/
+.muxu-content .ads-content{width: 300px;height: 250px;display: block;margin:0 auto;margin-top: 20px;margin-bottom: 20px}

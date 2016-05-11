@@ -1,0 +1,103 @@
+<extend name="Public/base" />
+
+<block name="main">
+    <div class="page-header clearfix">
+        <h3>友情链接</h3>
+        <ul class="nav nav-tabs">    
+            <li>
+                <a href="{:U('Config/update')}">网站设置</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content-box-content">
+        <form action="{:U('Config/update')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="model" value="Config">
+            <input type="hidden" name="id" value="{$row['id']}">
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">网站标题：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="title" name="title" value="{$row['title']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-sm-2 control-label">网站描述：</label>
+                <div class="col-sm-10">
+                    <textarea  class="form-control" id="description" name="description">{$row['description']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="keywords" class="col-sm-2 control-label">关键字：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="keywords" name="keywords" value="{$row['keywords']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">关于：</label>
+                <div class="col-sm-10">
+                    <textarea id="about" name="about" style="width:90%;height:400px;">{$row['about']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="icp" class="col-sm-2 control-label">ICP：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="icp" name="icp" value="{$row['icp']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="index_page" class="col-sm-2 control-label">前台分页数：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="index_page" name="index_page" value="{$row['index_page']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="admin_page" class="col-sm-2 control-label">后台分页数：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="admin_page" name="admin_page" value="{$row['admin_page']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="logo" class="col-sm-2 control-label">LOGO：</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control" name="logo" id="logo">
+                    <if condition="!empty($row['logo'])">
+                    <div class="col-md-2 thumbnail">
+                        <img src="__ROOT__/Uploads{$row['logo']}">
+                    </div>
+                    </if>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tj" class="col-sm-2 control-label">统计代码：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="tj" name="tj">{$row['tj']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否开启：</label>
+                <div class="col-sm-10">
+                    <input type="radio" name="status" value="1" <eq name="row['status']" value="1">checked</eq> >是&nbsp;&nbsp;
+                    <input type="radio" name="status" value="9" <eq name="row['status']" value="9">checked</eq> >否
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default btn-primary">确认编辑</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <js href="__COMMON__/ueditor/ueditor.config.js" />
+    <js href="__COMMON__/ueditor/ueditor.all.min.js" />
+    <script type="text/javascript">
+        $(function(){
+            var ue = UE.getEditor('about',{
+                serverUrl :"{:U('Admin/Base/ueditor')}"
+            });
+        })
+    </script>
+</block>
+
+

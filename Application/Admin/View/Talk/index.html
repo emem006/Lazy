@@ -1,0 +1,100 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="page-header clearfix">
+        <h3>杂谈管理</h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="{:U('Talk/index')}">杂谈列表</a>
+            </li>
+            <li>
+                <a href="{:U('Talk/add')}">添加杂谈</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search-content">
+        <form action="{:U('Talk/index')}" method="post"class="search-form form-inline" role="form">
+            <div class="form-group">
+                <label class="sr-only" for="title">请输入杂谈标题</label>
+                <input class="earch-input form-control" id="title" type="text" name="title" value="{$request['title']}" placeholder="请输入杂谈标题"/>　
+            </div>
+            <button type="submit" class="btn derive">查询</button>　
+        </form>
+    </div>
+
+    <include file="Public:notification"/>
+
+    <div class="content-box-content">
+
+        <form action="{:U('Talk/remove')}" method="post" class="batch-form">
+            <input type="hidden" name="model" value="Talk">
+            <table class="table table-striped table-framed table-hover">
+                <thead>
+                <tr>
+                    <th width="6%">
+                        <input class="check-all" type="checkbox" />&nbsp;&nbsp;ID
+                    </th>
+                    <th width="13%">发布时间</th>
+                    <th>昵称</th>
+                    <th>省会</th>
+                    <th>城市</th>
+                    <th>是否公开</th>
+                    <th>是否顶置</th>
+                    <th width="6%">操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <if condition="empty($list)">
+                    <tr><td colspan="10"><span style="font-size:14px;">暂无数据</span></td></tr>
+                </if>
+                <volist name="list" id="row">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id[]" value="{$row['id']}"/>&nbsp;&nbsp;{$row['id']}
+                        </td>
+                        <td>{$row['create_time']|date='Y-m-d H:i:s',###}</td>
+                        <td>{$row['nickname']}</a></td>
+                        <td>{$row['province']|default='四川'}</td>
+                        <td>{$row['city']|default='成都'}</td>
+                        <td>
+                            <span class="fa fa-eye on-off fa-black" <if condition="$row['status'] eq 0">style="display:none;"</if>></span>
+                            <input type="hidden" value="Article|status|{$row['id']}|1">
+                            <span class="fa fa-eye-slash on-off fa-red" <if condition="$row['status'] eq 1">style="display:none;"</if>></span>
+                            <input type="hidden" value="Article|status|{$row['id']}|0">
+                        </td>
+                        <td>
+                            <span class="fa fa-eye on-off fa-black" <if condition="$row['is_show'] eq 0">style="display:none;"</if>></span>
+                            <input type="hidden" value="Article|is_top|{$row['id']}|1">
+                            <span class="fa fa-eye-slash on-off fa-red" <if condition="$row['is_show'] eq 1">style="display:none;"</if>></span>
+                            <input type="hidden" value="Article|is_top|{$row['id']}|0">
+                        </td>
+                        <td>
+                            <a href="{:U('Talk/update',array('model'=>'Talk','alias'=>'n','id'=>$row['id']))}" title="编辑" class="modify">
+                                <span class="fa fa-pencil"></span>
+                            </a>&nbsp;
+                            <a href="#" title="删除" class="delete-delete">
+                                <span class="fa fa-remove"></span>
+                            </a><input type="hidden" value="{:U('Talk/remove',array('model'=>'Talk','id'=>$row['id']))}">
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        <div class="bulk-actions fl">
+                            <input type="button" class="btn delete-batch" value="批量删除">
+                        </div>
+                        <div class="fr pagination">
+                            {$page}
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+
+            </table>
+        </form>
+    </div>
+</block>

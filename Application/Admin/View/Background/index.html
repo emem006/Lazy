@@ -1,0 +1,86 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="page-header clearfix">
+        <h3>背景图片</h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="{:U('Background/index')}">图片列表</a>
+            </li>
+            <li>
+                <a href="{:U('Background/add')}">添加图片</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search-content">
+
+    </div>
+    <include file="Public:notification"/>
+
+    <div class="content-box-content">
+
+        <form action="{:U('Background/remove')}" method="post" class="batch-form">
+            <input type="hidden" name="model" value="Background">
+            <table class="table table-striped table-framed table-hover">
+                <thead>
+                <tr>
+                    <th width="6%">
+                        <input class="check-all" type="checkbox" />&nbsp;&nbsp;ID
+                    </th>
+                    <th>预览图</th>
+                    <th>路径</th>
+                    <th>是否显示</th>
+                    <th width="6%">操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <if condition="empty($list)">
+                    <tr><td colspan="10"><span style="font-size:14px;">暂无数据</span></td></tr>
+                </if>
+                <volist name="list" id="row">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id[]" value="{$row['id']}"/>&nbsp;&nbsp;{$row['id']}
+                        </td>
+                        <td>
+                            <div class="preview">
+                                <img src="__ROOT__/Uploads{$row['img']}">
+                            </div>
+                        </td>
+                        <td>{$row['img']}</td>
+                        <td>
+                            <span class="fa fa-eye on-off fa-black" <if condition="$row['status'] eq 0">style="display:none;"</if>></span>
+                            <input type="hidden" value="Background|status|{$row['id']}|1">
+                            <span class="fa fa-eye-slash on-off fa-red" <if condition="$row['status'] eq 1">style="display:none;"</if>></span>
+                            <input type="hidden" value="Background|status|{$row['id']}|0">
+                        </td>
+                        <td>
+                            <a href="{:U('Background/update',array('model'=>'Background','alias'=>'b','id'=>$row['id']))}" title="编辑" class="modify">
+                                <span class="fa fa-pencil"></span>
+                            </a>&nbsp;
+                            <a href="#" title="删除" class="delete-delete">
+                                <span class="fa fa-remove"></span>
+                            </a><input type="hidden" value="{:U('Background/remove',array('model'=>'Background','id'=>$row['id']))}">
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        <div class="bulk-actions fl">
+                            <input type="button" class="btn delete-batch" value="批量删除">
+                        </div>
+                        <div class="fr pagination">
+                            {$page}
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+
+            </table>
+        </form>
+    </div>
+</block>

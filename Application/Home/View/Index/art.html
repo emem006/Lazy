@@ -1,0 +1,175 @@
+<extend name="Public/base" />
+<block name="style">
+    <link href="__COMMON__/ueditor/third-party/video-js/video-js.min.css" rel="stylesheet">
+</block>
+<block name="head-script">
+    <script src="__COMMON__/ueditor/third-party/video-js/video.js"></script>
+    <script src="http://cdn.bootcss.com/html5media/1.1.8/html5media.min.js"></script>
+</block>
+<block name="main">
+    <div class="wrapper wrapper-content" style="overflow: hidden">
+        <div class="row animated fadeInRight">
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>帅哥美女聊几句</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="chat-message-form">
+                                <div class="form-group">
+                                    <div id="textarea" class="form-control" contenteditable="true" tabindex="4"></div>
+                                </div>
+                                <div id="smilies" class="dropdown">
+                                    <span class="smilies-icon"></span>
+                                    <div class="smilies-box">
+                                        <div class="dropdown-arrow1"></div>
+                                        <div class="dropdown-arrow2"></div>
+                                        <div id="smilies-box" class="submenu">
+                                            <ul class="inline-ul">
+                                                {$smilies}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 pull-left">
+                            <if condition="$nickname eq ''">
+                                <img src="__IMG__/qq.png" class="qq" style="width: 24px;">
+                                <a href="{:U('Login/login',array('type'=>'qq','oldurl'=>$oldurl))}">QQ</a>
+
+                                <img src="__IMG__/sina.png" class="qq" style="width: 21px">
+                                <a href="{:U('Login/login',array('type'=>'sina','oldurl'=>$oldurl))}">微博</a>
+
+                                <img src="__IMG__/weixin.png" class="qq" style="width: 17px">
+                                <a id="wx" href="javascript:void(0)">微信</a>
+                            </if>
+                        </div>
+                        <div class="col-sm-4 pull-right text-right">
+                            <button class="btn btn-primary btn-xs btn-submit" type="button"><i class="fa fa-check"></i>&nbsp;提交</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最新动态</h5>
+                    </div>
+                    <div class="ibox-content" style="padding: 15px 20px 0">
+                        <div>
+                            <div class="feed-activity-list">
+                                <volist name="list" id="row" empty="还没有评论，沙发等你来抢">
+                                    <div class="feed-element">
+                                        <a href="javascript:void(0)" class="pull-left">
+                                            <if condition="$row['head'] eq ''">
+                                                <img src="__IMG__/default-head.png" class="img-circle">
+                                                <else />
+                                                <img src="{$row['head']}" class="img-circle">
+                                            </if>
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="pull-right text-navy">{$row['create_time']|smartDate=###}</small>
+                                            <strong>{$row['nickname']}</strong>
+                                            <div class="actions">
+                                                <p>
+                                                    {$row['content']|stripslashes=###}
+                                                </p>
+                                            </div>
+                                        </div>
+                                     </div>
+                                    </volist>
+
+
+                            </div>
+
+                            <nav class="pagination" role="navigation" style="display: block;text-align:center;">
+                                {$page}
+                            </nav>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="txt-center"><strong>{$info['title']}</strong></span>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <div class="feed-activity-list">
+                                <div class="feed-element">
+                                    <div class="ibox-content profile-content">
+                                        {$info['brief']}
+                                        <p>{$info['content']|stripslashes=###}</p>
+                                    </div>
+                                    <div class="user-button text-center">
+                                        <div class="row">
+                                            <div class="prev-next-wrap clearfix">
+                                                <if condition="!empty($neighborlog['prev'])">
+                                                    <a class="btn btn-primary btn-sm" href="{:U('Index/art',array('id'=>$neighborlog['prev']['id']))}"><i class="fa fa-angle-left fa-fw"></i>{$neighborlog['prev']['title']}</a>
+                                                </if>
+                                                <if condition="!empty($neighborlog['next'])">
+                                                    <a type="button" class="btn btn-primary btn-sm" href="{:U('Index/art',array('id'=>$neighborlog['next']['id']))}">{$neighborlog['next']['title']}<i class="fa fa-angle-right fa-fw"></i></a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $('.smilie-close').click(function(){
+            $('#smilies').removeClass('selected');
+        });
+        $('.smilies-icon').click(function(){
+            $('#smilies').addClass('selected');
+        });
+
+        $('.smilie-click').click(function(){
+            var _this = $(this);
+            $('#textarea').append(_this.html());
+            $('#smilies').removeClass('selected');
+        });
+        $("#wx").on("click",function(){
+            //官网欢迎页
+            layer.open({
+                type: 2,
+                title: '',
+                shadeClose: true,
+                area: ['300px', '65%'],
+                content: "{:U('Login/login',array('type'=>'weixin','oldurl'=>$oldurl))}"
+            });
+        })
+        $('.btn-submit').click(function(){
+            var that=$(this);
+            var content = $('#textarea').html();
+            if(content == ''){
+                layer.msg('请留下一点东西吧!');
+            }else{
+                $.ajax({
+                    url:'{:U("Index/post")}',
+                    type:'POST',
+                    data:{nickname:"",email:"",web:"",content:content,art_id:"{$info['id']}"},
+                    success:function(data){
+                        if(data.status){
+                            that.val("");
+                            layer.msg('Thank you very much！');
+                            window.location.reload();
+                        }else{
+                            layer.msg(data.info);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    </block>

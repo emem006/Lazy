@@ -1,0 +1,45 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+        <div class="row" style="min-height: 700px;">
+            <volist name="list" id="vo">
+                <div class="col-lg-3">
+                    <div class="contact-box">
+                        <a href="{:U('Index/art',array('id'=>$vo['id']))}" class="btn-link">
+                            <h4>
+                                {$vo['title']}
+                            </h4>
+                        </a>
+                        <div class="small m-b-xs">
+                            <strong>{$vo['author']}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> {$vo['create_time']}</span>
+                        </div>
+                        <p style="height: 100px;overflow: hidden;">
+                            {$vo['brief']}
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>标签：</h5>
+                                <if condition="!empty($vo['tags'])">
+                                    <i class="fa fa-tags"></i>
+                                    <volist name="vo[tags]" id="tag">
+                                        <button class="btn btn-primary btn-xs" type="button" style="margin-right: 5px;">{$tag}</button>
+                                    </volist>
+                                </if>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="small text-right">
+                                    <h5>状态：</h5>
+                                    <div> <i class="fa fa-comments-o"> </i> {$vo['count']} 评论 </div>
+                                    <i class="fa fa-eye"> </i> {$vo['view']} 浏览
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </volist>
+        </div>
+        <nav class="pagination" role="navigation" style="display: block;text-align:center;">
+            {$page}
+        </nav>
+    </div>
+</block>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{$title|default=$web['title']}</title>
+    <meta name="description" content="{$web['description']}" />
+    <meta name="keywords" content="{$web['keywords']}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="qc:admins" content="34306377776513151446470" />
+    <meta property="wb:webmaster" content="0370ca5f1ac4cd03" />
+    <link rel="shortcut icon" href="__IMG__/favicon.jpg">
+    <link href="__CSS__/amazeui.css" rel="stylesheet">
+    <link href="__COMMON__/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__COMMON__/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="__COMMON__/css/animate.min.css" rel="stylesheet">
+    <link href="__COMMON__/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="__CSS__/base.css" rel="stylesheet">
+    <link href="__CSS__/muxu.css" rel="stylesheet">
+    <block name="style"></block>
+    <block name="head-script"></block>
+</head>
+<body class="gray-bg top-navigation">
+<div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom white-bg">
+            <nav class="navbar navbar-fixed-top" role="navigation" style="border-bottom: 1px solid #1ab394;">
+                <div class="navbar-header">
+                    <a href="javascript:void(0)" class="navbar-brand" style="height: 53px;">慵懒时光</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <volist name="nav_list" id="row">
+                            <li <if condition="$active eq $row['active']">class="nav-current"</if> role="presentation">
+                            <a href="__ROOT__{$row['url']}-{$row['active']}" <if condition="$row['target'] eq 1">target="_blank"</if>>{$row['name']}</a>
+                            </li>
+                        </volist>
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown msg-head" style="padding: 5px 20px;">
+                            <if condition="$nickname eq ''">
+                                <img alt="未登录" class="img-circle login-on" src="__IMG__/default-head.png" style="width: 38px;">
+                                <else/>
+                                <img alt="{$nickname}" class="img-circle login-out" src="{$head}" style="width: 38px;">
+                            </if>
+                            <ul class="dropdown-menu dropdown-alerts" style="margin-top:6px;">
+                                <li>
+                                    <div class="menu-login">
+                                        <a href="{:U('Login/login',array('type'=>'qq','oldurl'=>$oldurl))}"><img src="__IMG__/qq-b.png" class="qq" style="width: 40px"></a>
+                                        <a href="{:U('Login/login',array('type'=>'sina','oldurl'=>$oldurl))}"><img src="__IMG__/sina-b.png" class="qq" style="width: 40px;"></a>
+                                        <a id="weixinlogin" href="javascript:void(0)" data-url="{:U('Login/login',array('type'=>'weixin','oldurl'=>$oldurl))}"><img src="__IMG__/wx-b.png" class="qq" style="width: 40px;"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <block name="main"></block>
+        <div class="footer" style="background: #00b271 none repeat scroll 0 0;color: whitesmoke;min-height: 120px;padding: 5px 20px;">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5>友情链接:</h5>
+                    <div class="ibox-content" style="background-color: #00b271;border: none;padding:0;line-height: 22px;">
+                        <ol>
+                            <volist name="friendly_link" id="fl">
+                                <li><a style="color: whitesmoke" href="{$fl['link']}" title="{$fl['title']}" target="_blank">{$fl['title']}</a></li>
+                            </volist>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="ibox-content" style="background-color: #00b271;border: none;padding:0;line-height: 22px;">
+                        <ol>
+                            <li>站在为人父母，要做好榜样的立场;</li>
+                            <li>站在为人子女，要孝顺的立场;</li>
+                            <li>站在要一起努力，奋斗，要有好的家庭，好的前程的立场;</li>
+                            <li>同心;</li>
+                            <li>要学着包容，不计较，豁达，珍惜生活;</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-right">
+                    <p>信言不美，美言不信。</p>
+                    <p>善者不辩，辩者不善。知者不博，博者不知。</p>
+                    <p>蜀ICP备16004656号</p>
+                    <p>Coded By：<a href="http://www.easymall.top/" target="_blank" style="color: whitesmoke">一个风花雪夜的晚上</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="am-g am-padding-bottom-xs am-animation-fade" id="music-list">
+            <audio><source src="__JS__/3273246117982086.mp3"><source src=""></audio>
+        </div>
+        <div id="music">
+            <div class="am-progress am-progress-striped am-active volume" style="height:.3rem;background-color:transparent;margin-bottom:0;box-shadow:none;margin: 0 -15px;">
+                <div style="width: 57.8153%;" class="am-progress-bar am-progress-bar-success pace">
+                    <a style="left: 57.8153%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a>
+                </div>
+            </div>
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-6 am-u-md-6 am-u-lg-6 am-vertical-align" style="height: 60px;">
+                    <div class="am-vertical-align-middle tag"></div>
+                </div>
+                <div class="am-u-sm-6 am-u-md-6 am-u-lg-6 am-vertical-align am-text-right" style="height: 60px;">
+                    <div class="am-vertical-align-middle">
+                        <a class="am-margin-right-xs"><i class="am-icon-backward rewind"></i></a>
+                        <a class="am-margin-right-xs"><i class="am-icon-play playback am-icon-pause"></i></a>
+                        <a class="am-margin-right-xs"><i class="am-icon-forward fastforward"></i></a>
+                        <!--<a class="am-margin-right-xs"><i class="am-icon-eject volume"></i></a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="small-chat-box fadeInRight animated">
+        <div class="heading" draggable="true">
+            <small class="chat-date pull-right">
+                {:date('Y-m-d')}
+            </small> 慵懒聊天室
+        </div>
+        <div class="content chat-content">
+
+        </div>
+        <div class="form-chat">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control chat-msg">
+                    <span class="input-group-btn">
+                    <button class="btn btn-primary send-msg" type="button">发送</button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <div id="small-chat" style="right:6px;">
+        <span class="badge badge-warning pull-right msg-count">0</span>
+        <a class="open-small-chat">
+            <i class="fa fa-comments"></i>
+        </a>
+    </div>
+</div>
+<a href="#" id="back_to_top"><i class="fa fa-angle-up"></i></a>
+<div class="hidden">{$web['tj']}</div>
+<script src="__COMMON__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__COMMON__/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/amazeui.js"></script>
+<script src="__COMMON__/js/content.min.js?v=1.0.0"></script>
+<script src="__JS__/base.js"></script>
+
+<script src = "https://cdn.wilddog.com/js/client/current/wilddog.js" ></script>
+<script src="__COMMON__/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="__COMMON__/js/hplus.min.js?v=4.1.0"></script>
+<script src="__COMMON__/js/plugins/pace/pace.min.js"></script>
+<block name="script">
+</block>
+<script src="__JS__/music.js"></script>
+<script type="text/javascript">
+    //浏览器判断
+    function isWebKit() {
+        if(/android/i.test(navigator.userAgent)){
+            return "android";
+        }
+        if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
+            return "ios";
+        }
+        if(/Linux/i.test(navigator.userAgent)){
+            return "linux";
+        }
+        if(/Linux/i.test(navigator.platform)){
+            return "linux";
+        }
+        if(/MicroMessenger/i.test(navigator.userAgent)){
+            return "weixin";
+        }
+    }
+    $(function(){
+        var chatRef = new Wilddog('https://luoyulin.wilddogio.com');
+        chatRef.child("root").on("value", function(info) {
+            var data=info.val();
+            var html="";
+            var i=0;
+            for(var key in data){
+                if(i%2 ==0){
+                    html+='<div class="left">';
+                    html+='<div class="author-name">'+data[key].name+'<small class="chat-date" style="margin-left: 3px;">'+data[key].time+'</small></div>';
+                    html+='<div class="chat-message active">'+data[key].content+'</div></div>';
+                }else{
+                    html+='<div class="right">';
+                    html+='<div class="author-name">'+data[key].name+'<small class="chat-date pull-right" style="margin-left: 3px;">'+data[key].time+'</small></div>';
+                    html+='<div class="chat-message">'+data[key].content+'</div></div>';
+                }
+                i++;
+            }
+            $(".msg-count").text(i);
+            $(".chat-content").append(html).scrollTop(9999);
+        });
+
+        $(".send-msg").on("click",function () {
+            if("{$nickname}"==""){
+                layer.msg('请登录留言！');
+            }else{
+                chatRef.child("root").push({
+                    "name" : "{$nickname}"==''?"游客":"{$nickname}",
+                    "time" : new Date().toLocaleTimeString(),
+                    "content" :$(".chat-msg").val()
+                });
+                $(".chat-msg").val('');
+            }
+        })
+        $(".chat-msg").keydown(function (event) {
+            if(event.keyCode==13){
+                if("{$nickname}"==""){
+                    layer.msg('请登录留言！');
+                }else{
+                    chatRef.child("root").push({
+                        "name" : "{$nickname}"==''?"游客":"{$nickname}",
+                        "time" : new Date().toLocaleTimeString(),
+                        "content" :$(".chat-msg").val()
+                    });
+                    $(".chat-msg").val('');
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

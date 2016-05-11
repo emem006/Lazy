@@ -1,0 +1,73 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="page-header clearfix">
+        <h3>一些语录</h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="{:U('Twitter/index')}">语录列表</a>
+            </li>
+            <li>
+                <a href="{:U('Twitter/add')}">添加语录</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search-content">
+
+    </div>
+    <include file="Public:notification"/>
+    <div class="content-box-content">
+        <form action="{:U('Twitter/remove')}" method="post" class="batch-form">
+            <input type="hidden" name="model" value="Twitter">
+            <table class="table table-striped table-framed table-hover">
+                <thead>
+                <tr>
+                    <th width="6%">
+                        <input class="check-all" type="checkbox" />&nbsp;&nbsp;ID
+                    </th>
+                    <th width="15%">发布时间</th>
+                    <th width="60%">内容</th>
+                    <th width="10%">是否显示</th>
+                    <th width="6%">操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <if condition="empty($list)">
+                    <tr><td colspan="10"><span style="font-size:14px;">暂无数据</span></td></tr>
+                </if>
+                <volist name="list" id="row">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id[]" value="{$row['id']}"/>&nbsp;&nbsp;{$row['id']}
+                        </td>
+                        <td>{$row['create_time']|date='Y-m-d H:i:s',###}</td>
+                        <td>{$row['content']}</td>
+                        <td>
+                            <span class="fa fa-eye on-off fa-black" <if condition="$row['status'] eq 0">style="display:none;"</if>></span>
+                            <input type="hidden" value="Twitter|status|{$row['id']}|1">
+                            <span class="fa fa-eye-slash on-off fa-red" <if condition="$row['status'] eq 1">style="display:none;"</if>></span>
+                            <input type="hidden" value="Twitter|status|{$row['id']}|0">
+                        </td>
+                        <td>
+                            <a href="#" title="删除" class="delete-delete">
+                                <span class="fa fa-remove"></span>
+                            </a><input type="hidden" value="{:U('Twitter/remove',array('model'=>'Twitter','id'=>$row['id']))}">
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        <div class="bulk-actions fl">
+                            <input type="button" class="btn delete-batch" value="批量删除">
+                        </div>
+                        <div class="fr pagination">
+                            {$page}
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</block>

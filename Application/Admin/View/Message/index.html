@@ -1,0 +1,159 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="page-header clearfix">
+        <h3>留言管理</h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="{:U('Message/index')}">列表</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search-content">
+
+    </div>
+    <include file="Public:notification"/>
+    <div class="content-box-content">
+        <form action="{:U('Message/remove')}" method="post" class="batch-form">
+            <input type="hidden" name="model" value="Message">
+            <table class="table table-striped table-framed table-hover">
+                <thead>
+                <tr>
+                    <th width="6%">
+                        <input class="check-all" type="checkbox" />&nbsp;&nbsp;ID
+                    </th>
+                    <th>昵称</th>
+                    <th>邮箱</th>
+                    <th width="40%">内容</th>
+                    <th>地址</th>
+                    <th>IP地址</th>
+                    <th>留言时间</th>
+                    <th>审核</th>
+                    <th>是否回复</th>
+                    <th width="6%">操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <if condition="empty($list)">
+                    <tr><td colspan="10"><span style="font-size:14px;">暂无数据</span></td></tr>
+                </if>
+                <volist name="list" id="row">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id[]" value="{$row['id']}"/>&nbsp;&nbsp;{$row['id']}
+                        </td>
+                        <td>{$row['nickname']}</td>
+                        <td>{$row['email']}</td>
+                        <td>{$row['content']|stripslashes=###}</td>
+                        <td>{$row['province']} · {$row['city']}</td>
+                        <td>{$row['ip']}</td>
+                        <td>{$row['create_time']|date='Y-m-d H:i',###}</td>
+                        <td>
+                            <span class="fa fa-eye on-off fa-black" <if condition="$row['is_show'] eq 0">style="display:none;"</if>></span>
+                            <input type="hidden" value="Message|is_show|{$row['id']}|1">
+                            <span class="fa fa-eye-slash on-off fa-red" <if condition="$row['is_show'] eq 1">style="display:none;"</if>></span>
+                            <input type="hidden" value="Message|is_show|{$row['id']}|0">
+                        </td>
+                        <td class="reply-{$row['status']}">{$row['status']|message_status}</td>
+                        <td>
+                            <if condition="$row['status'] eq 0">
+                                <a href="javascript:;" data-id="{$row['id']}" title="回复" class="reply" data-toggle="modal" data-target="#myModal">
+                                    <span class="fa fa-comment"></span>
+                                </a>
+                            </if>
+                            &nbsp;
+                            <a href="#" title="删除" class="delete-delete">
+                                <span class="fa fa-remove"></span>
+                            </a><input type="hidden" value="{:U('Message/remove',array('model'=>'Message','id'=>$row['id']))}">
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        <div class="bulk-actions fl">
+                            <input type="button" class="btn delete-batch" value="批量删除">
+                        </div>
+                        <div class="fr pagination">
+                            {$page}
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" data-id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">回复内容</h4>
+                </div>
+               <div class="modal-body">
+                   <div class="textarea-box">
+                       <div id="textarea" class="form-control" contenteditable="true" tabindex="4"></div>
+                       <div id="smilies" class="dropdown">
+                           <span class="smilies-icon"></span>
+                           <div class="smilies-box">
+                               <div class="dropdown-arrow1"></div>
+                               <div class="dropdown-arrow2"></div>
+                               <div id="smilies-box" class="submenu">
+                                   <ul class="inline-ul">
+                                       {$smilies}
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+                <div class="modal-footer">
+                    <input type="hidden" value="" id="id">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal end-->
+</block>
+<block name="script">
+    <script>
+        $('.smilie-close').click(function(){
+            $('#smilies').removeClass('selected');
+        });
+        $('.smilies-icon').click(function(){
+            $('#smilies').addClass('selected');
+        });
+
+        $('.smilie-click').click(function(){
+            var _this = $(this);
+            $('#textarea').append(_this.html());
+            $('#smilies').removeClass('selected');
+        });
+
+        $('.reply').click(function(){
+            $('#id').val($(this).data('id'));
+        });
+        $('.btn-primary').click(function(){
+            var id = $('#id').val();
+            var reply_desc = $('#textarea').html();
+            if(reply_desc == ''){
+                alert('请填写回复内容！'); return false;
+            }
+            $.ajax({
+                url:'{:U("Message/reply")}',
+                type:'post',
+                data:{id:id,reply_desc:reply_desc},
+                success:function(data){
+                    if(data.status){
+                        window.location.reload();
+                    }else{
+                        alert(data.info); return false;
+                    }
+                }
+            });
+        });
+    </script>
+</block>

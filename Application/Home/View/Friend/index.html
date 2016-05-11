@@ -1,0 +1,21 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-12 friend">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最近登陆的访客：{$count}人</h5>
+                    </div>
+                    <div class="ibox-content no-padding" style="min-height: 800px;">
+                        <volist name="list" id="row">
+                            <img src="{$row['head']}" alt="{$row['nickname']}" title="{$row['nickname']}" class="img-circle">
+                        </volist>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+
+

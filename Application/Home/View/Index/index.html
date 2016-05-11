@@ -1,0 +1,213 @@
+<extend name="Public/base" />
+<block name="main">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>牢骚几句</h5> <span class="label label-primary">Happy+</span>
+                    <div class="ibox-tools">
+                        骚不是这么骚滴…
+                    </div>
+                </div>
+                <div class="ibox-content no-padding">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="media-body">
+                                <p class="bar_dashboard">{$twitter['content']}</p>
+                                <small class="text-muted pull-right">{$twitter['create_time']|smartDate=###}</small>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>浅谈技术</h5>
+                    <div class="ibox-tools">
+                        技术这东西，容我再想想…
+                    </div>
+                </div>
+                <div class="ibox-content no-padding">
+                    <ul class="list-group">
+                        <volist name="list" id="vo">
+                            <li class="list-group-item">
+                                <div class="profile-content">
+                                    <a href="{:U('Index/art',array('id'=>$vo['id']))}">
+                                        <div class="col-sm-4">
+                                            <div class="text-center">
+                                                <img alt="image" class="img-circle m-t-xs img-responsive" src="__ROOT__/Uploads{$vo['cover']}">
+                                                <div class="m-t-xs text-navy">
+                                                    <if condition="!empty($vo['tags'])">
+                                                    <i class="fa fa-tags"></i>
+                                                        <volist name="vo[tags]" id="tag">
+                                                            {$tag}
+                                                            </volist>
+                                                    </if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="col-sm-8 fc-content">
+                                        <h4><a href="{:U('Index/art',array('id'=>$vo['id']))}">{$vo['title']}</a></h4>
+                                        <p style="text-indent:2em;height: 95px;">
+                                            {$vo['brief']}
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4 pull-right text-right">
+                                        <p style="margin: 0"><i class="fa fa-clock-o"></i> {$vo['create_time']} </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                    <!--<nav class="pagination" role="navigation" style="display: block;text-align:center;">
+                        {$page}
+                    </nav>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>放松心情</h5>
+                            <div class="ibox-tools">
+                                <span class="label label-warning-light song_count">0条数据</span>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div>
+                                <div class="feed-activity-list playlist">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>心灵杂谈</h5>
+                            <div class="ibox-tools">
+                                扯淡的流年…
+                            </div>
+                        </div>
+                        <div class="chat-message-form">
+                            <div class="form-group">
+                                <div id="textarea" class="form-control submit-talk" contenteditable="true" tabindex="4"></div>
+                            </div>
+                            <div id="smilies" class="dropdown" style="bottom: 0;top:111px;">
+                                <span class="smilies-icon"></span>
+                                <div class="smilies-box">
+                                    <div class="dropdown-arrow1"></div>
+                                    <div class="dropdown-arrow2"></div>
+                                    <div id="smilies-box" class="submenu">
+                                        <ul class="inline-ul">
+                                            {$smilies}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="position: absolute;top:120px;right: 20px;">
+                                <button class="btn btn-primary btn-xs btn-talking" type="button">
+                                    <i class="fa fa-check"></i>
+                                    提交
+                                </button>
+                            </div>
+                        </div>
+                        <volist name="talking" id="row">
+                            <div class="social-feed-box" style="margin-bottom: 0">
+                                <div class="social-avatar">
+                                    <a href="#" class="pull-left msg-head">
+                                        <if condition="$row['uid'] eq 1">
+                                            <img src="__ROOT__/Uploads/{$web['logo']}" class="img-circle">
+                                            <else />
+                                            <if condition="$row['head'] eq ''">
+                                                <img src="__IMG__/default-head.png">
+                                                <else />
+                                                <img src="{$row['head']}">
+                                            </if>
+                                        </if>
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="javascript:void(0)">
+                                            {$row['nickname']}
+                                        </a>
+                                        <small class="text-muted">{$row['create_time']|smartDate=###} 来自 {$row['province']} · {$row['city']}</small>
+                                    </div>
+                                </div>
+                                <div class="social-body" style="padding: 15px 5px 25px;">
+                                    <p>
+                                        {$row['content']|stripslashes=###}
+                                    </p>
+                                    <div class="btn-group pull-right" style="padding: 0 5px 20px">
+                                        <button class="btn btn-white btn-xs thinks" data-id="{$row['id']}"><i class="fa fa-thumbs-up"></i> 赞</button>
+                                        <button class="btn btn-white btn-xs"><span class="badge badge-danger laud-num">{$row['laud']}</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </volist>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            $(".thinks").on("click",function(){
+                var that=$(this);
+                var id=$(this).attr("data-id");
+                $.get("{:U('Index/UpLaud')}",{id:id},function(data){
+                    if(data.status){
+                        var num=that.next().find(".laud-num").text();
+                        that.next().find(".laud-num").text(parseInt(num)+1);
+                    }
+                })
+            })
+            $(".btn-comment").on("click",function(){
+                $(this).parent().parent().next().find(".heart-submit").toggle();
+            });
+            $(".btn-talking").on("click",function(){
+                var content = $("#textarea").html(),
+                        nickname="{$nickname}";
+                if(content == ''){
+                    layer.msg('请留下一点东西吧!');
+                }else if(nickname==''){
+                    layer.msg('请先登录下！');
+                }else{
+                    $.ajax({
+                        url:'{:U("Index/addtalk")}',
+                        type:'POST',
+                        data:{nickname:nickname,content:content},
+                        success:function(data){
+                            if(data.status){
+                                layer.msg('Thank you very much！');
+                                window.location.reload();
+                            }else{
+                                layer.msg(data.info);
+                            }
+                        }
+                    });
+                }
+            })
+            $('.smilie-close').click(function(){
+                $('#smilies').removeClass('selected');
+            });
+            $('.smilies-icon').click(function(){
+                $('#smilies').addClass('selected');
+            });
+
+            $('.smilie-click').click(function(){
+                var _this = $(this);
+                $('#textarea').append(_this.html());
+                $('#smilies').removeClass('selected');
+            });
+        })
+    </script>
+</block>

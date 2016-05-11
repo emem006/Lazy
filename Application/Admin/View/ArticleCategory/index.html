@@ -1,0 +1,49 @@
+<extend name="Public/base" />
+
+<block name="main">
+
+    <div class="page-header clearfix">
+        <h3>文章管理</h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="{:U('ArticleCategory/index')}">分类列表</a>
+            </li>
+            <li>
+                <a href="{:U('ArticleCategory/add')}">添加分类</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search-content">
+
+    </div>
+
+    <include file="Public:notification"/>
+
+    <div class="content-box-content">
+
+        <form action="{:U('ArticleCategory/remove')}" method="post" class="batch-form">
+            <table class="table table-striped table-framed table-hover">
+                <thead>
+                <tr>
+                    <th width="10%">添加时间</th>
+                    <th>编号</th>
+                    <th>分类名称</th>
+                    <th>是否显示</th>
+                    <th>排序</th>
+                    <th width="8%">操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <if condition="empty($cate_list)">
+                    <tr><td colspan="10"><span style="font-size:14px;">暂无数据</span></td></tr>
+                </if>
+                {$cate_list}
+                </tbody>
+
+                <tfoot>
+                </tfoot>
+
+            </table>
+        </form>
+    </div>
+</block>

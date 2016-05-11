@@ -1,0 +1,76 @@
+<extend name="Public/base" />
+<block name="main">
+    <div class="page-header clearfix">
+        <h3>友情链接</h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="{:U('FriendlyLink/index')}">友链列表</a>
+            </li>
+            <li>
+                <a href="{:U('FriendlyLink/add')}">添加友链</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search-content">
+
+    </div>
+    <include file="Public:notification"/>
+    <div class="content-box-content">
+        <form action="{:U('FriendlyLink/remove')}" method="post" class="batch-form">
+            <input type="hidden" name="model" value="FriendlyLink">
+            <table class="table table-striped table-framed table-hover">
+                <thead>
+                <tr>
+                    <th width="6%">
+                        <input class="check-all" type="checkbox" />&nbsp;&nbsp;ID
+                    </th>
+                    <th>标题</th>
+                    <th>链接</th>
+                    <th>是否显示</th>
+                    <th width="6%">操作</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <if condition="empty($list)">
+                    <tr><td colspan="10"><span style="font-size:14px;">暂无数据</span></td></tr>
+                </if>
+                <volist name="list" id="row">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id[]" value="{$row['id']}"/>&nbsp;&nbsp;{$row['id']}
+                        </td>
+                        <td>{$row['title']}</td>
+                        <td>{$row['link']}</td>
+                        <td>
+                            <span class="fa fa-eye on-off fa-black" <if condition="$row['status'] eq 0">style="display:none;"</if>></span>
+                            <input type="hidden" value="FriendlyLink|status|{$row['id']}|1">
+                            <span class="fa fa-eye-slash on-off fa-red" <if condition="$row['status'] eq 1">style="display:none;"</if>></span>
+                            <input type="hidden" value="FriendlyLink|status|{$row['id']}|0">
+                        </td>
+                        <td>
+                            <a href="{:U('FriendlyLink/update',array('model'=>'FriendlyLink','alias'=>'fl','id'=>$row['id']))}" title="编辑" class="modify">
+                                <span class="fa fa-pencil"></span>
+                            </a>&nbsp;
+                            <a href="#" title="删除" class="delete-delete">
+                                <span class="fa fa-remove"></span>
+                            </a><input type="hidden" value="{:U('FriendlyLink/remove',array('model'=>'FriendlyLink','id'=>$row['id']))}">
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        <div class="bulk-actions fl">
+                            <input type="button" class="btn delete-batch" value="批量删除">
+                        </div>
+                        <div class="fr pagination">
+                            {$page}
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</block>

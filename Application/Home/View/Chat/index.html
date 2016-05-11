@@ -1,0 +1,82 @@
+<extend name="Public/base" />
+<block name="head-script">
+    <script src = "https://cdn.wilddog.com/js/client/current/wilddog.js" ></script>
+</block>
+<block name="main">
+    <div class="wrapper wrapper-content">
+        <div class="small-chat-box fadeInRight animated">
+            <div class="heading" draggable="true">
+                <small class="chat-date pull-right">
+                    {:date('Y-m-d')}
+                </small> 慵懒聊天室
+            </div>
+            <div class="content chat-content">
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control chat-msg">
+                    <span class="input-group-btn">
+                    <button class="btn btn-primary send-msg" type="button">发送</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="small-chat">
+            <span class="badge badge-warning pull-right msg-count">0</span>
+            <a class="open-small-chat">
+                <i class="fa fa-comments"></i>
+            </a>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script src="__COMMON__/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__COMMON__/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="__COMMON__/js/hplus.min.js?v=4.1.0"></script>
+    <script src="__COMMON__/js/plugins/pace/pace.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var chatRef = new Wilddog('https://luoyulin.wilddogio.com');
+            chatRef.child("root").on("value", function(info) {
+                var data=info.val();
+                var html="";
+                var i=0;
+                for(var key in data){
+                    if(i%2 ==0){
+                        html+='<div class="left">';
+                        html+='<div class="author-name">'+data[key].name+'<small class="chat-date" style="margin-left: 3px;">'+data[key].time+'</small></div>';
+                        html+='<div class="chat-message active">'+data[key].content+'</div></div>';
+                    }else{
+                        html+='<div class="right">';
+                        html+='<div class="author-name">'+data[key].name+'<small class="chat-date pull-right" style="margin-left: 3px;">'+data[key].time+'</small></div>';
+                        html+='<div class="chat-message">'+data[key].content+'</div></div>';
+                    }
+                    i++;
+                }
+                $(".msg-count").text(i);
+                $(".chat-content").append(html).scrollTop(9999);
+            });
+
+            $(".send-msg").on("click",function () {
+                chatRef.child("root").push({
+                    "name" : "{$nickname}"==''?"游客":"{$nickname}",
+                    "time" : new Date().toLocaleTimeString(),
+                    "content" :$(".chat-msg").val()
+                });
+                $(".chat-msg").val('');
+            })
+            $(".chat-msg").keydown(function (event) {
+                if(event.keyCode==13){
+                    chatRef.child("root").push({
+                        "name" : "{$nickname}"==''?"游客":"{$nickname}",
+                        "time" : new Date().toLocaleTimeString(),
+                        "content" :$(".chat-msg").val()
+                    });
+                    $(".chat-msg").val('');
+                }
+            })
+
+        })
+    </script>
+</block>
